@@ -10,6 +10,20 @@ import Components from 'unplugin-vue-components/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import ElementPlus from 'unplugin-element-plus/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { visualizer } from 'rollup-plugin-visualizer';
+// import viteCompression from 'vite-plugin-compression';
+import externalGlobals from 'rollup-plugin-external-globals';
+import brotli from 'rollup-plugin-brotli';
+import { createHtmlPlugin } from 'vite-plugin-html';
+import { manualChunksPlugin } from 'vite-plugin-webpackchunkname';
+
+// 外链形式处理，不进行打包的库（使用的频率非常多的库）, 而是在html中使用cdn去引入
+const globals = externalGlobals({
+	moment: 'moment',
+	'video.js': 'videojs'
+	// jspdf: 'jspdf',
+	// xlsx: 'xlsx'
+});
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 	// 获取当前工作目录
@@ -50,12 +64,33 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			Components({
 				resolvers: [IconsResolver(), ElementPlusResolver()],
 				dts: fileURLToPath(new URL('./types/components.d.ts', import.meta.url)),
-				dirs: [fileURLToPath(new URL('./src/components.d.ts', import.meta.url))]
+				dirs: [fileURLToPath(new URL('./src/components.d.ts', import.meta.url))],
+				include: [/\.vue$/, /\.vue\?/]
 			}),
 			// 自动安装图标
 			Icons({
 				autoInstall: true
-			})
+			}),
+			// 开启gzip压缩
+			// viteCompression({
+			// 	threshold: 20 * 1024, // 超过20kb开启gzip压缩
+			// 	ext: '.gz',
+			// 	algorithm: 'gzip'
+			// })
+			// 开启br压缩
+			brotli({}),
+			// 在生成的html中配置外链链接
+			createHtmlPlugin({
+				inject: {
+					data: {
+						momentscript: '<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.js" />',
+						videoscript: '<script src="https://cdn.jsdelivr.net/npm/video.js@7.14.3/dist/video.min.js" />'
+						// echartscript: '<script src="https://cdn.jsdelivr.net/npm/echarts@5.2.1/echarts" />'
+					}
+				}
+			}),
+			// 类似于webpack的设置配置webpackchunkname，根据router中的注释，否则需要在manualChunks中单独配置独立的路径进行配置
+			manualChunksPlugin()
 		],
 		// 运行后本地预览的服务器
 		server: {
@@ -103,12 +138,30 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 					index: fileURLToPath(new URL('./index.html', import.meta.url))
 				},
 				// 静态资源分类打包
+				// vite2.8之后的版本中，rollup将每个模块文件默认打包成单独的文件导致chunk多，那些不到1kb非常小的模块也单独成了一个chunk，浏览器同时发起请求连接的数量一般6个(http1)
 				output: {
 					format: 'esm',
-					chunkFileNames: 'static/js/[name]-[hash].js',
-					entryFileNames: 'static/js/[name]-[hash].js',
-					assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
-				}
+					chunkFileNames: 'static/js/[name]-[hash].js', // 代码分割后的文件名
+					entryFileNames: 'static/js/[name]-[hash].js', // 入口文件名
+					assetFileNames: 'static/[ext]/[name]-[hash].[ext]', // 静态资源文件名
+					experimentalMinChunkSize: 20 * 1024, // 单位B，小于20KB进行合并，但限于没有副作用时才会合并
+					manualChunks: (id: string) => {
+						// 根据业务实际情况，对于一些只有少数页面才会使用的第三方库，将其单独成chunk，这样在更新这部分时与其他库区分开
+						if (id.includes('html2canvas')) {
+							return 'min-vendor';
+						}
+						if (id.includes('node_modules')) {
+							return 'vendor';
+						}
+						// return 'index';
+					}
+				},
+				external: ['moment', 'video.js', 'xlsx', 'echart'],
+				treeshake: {
+					preset: 'recommended'
+				},
+				experimentalLogSideEffects: true, // 用于有副作用的时候
+				plugins: [visualizer(), globals]
 			}
 		},
 		// 配置别名

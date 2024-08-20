@@ -1,6 +1,5 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
-import { ElMessage } from 'element-plus';
 import { getMessageInfo } from './status';
 
 const service: AxiosInstance = axios.create({

@@ -13,7 +13,7 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import { ElMessageBox, ElMessage, ElButton } from 'element-plus';
+import type { ElButton } from 'element-plus';
 import { useCompRef } from '@/hooks/useCompRef';
 import { getRoleList } from '@/api/role';
 const router = useRouter();

@@ -1,6 +1,5 @@
 import service from '@/http/request';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ElMessage } from 'element-plus';
 
 // BaseResponse 为 res.data 的类型
 // T 为 res.data.data 的类型 不同的接口会返回不同的 data 所以我们加一个泛型表示

@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router';
 export default {
 	path: '/',
 	name: 'Layout',
-	component: () => import('@/layout/index.vue'),
+	component: () => import(/* webpackChunkName: "home" */ '@/layout/index.vue'),
 	meta: {
 		role: ['common', 'admin']
 	},
@@ -45,7 +45,7 @@ export default {
 		{
 			path: 'role',
 			name: 'Role',
-			component: () => import('@/views/role/index.vue'),
+			component: () => import(/* webpackChunkName: "role" */ '@/views/role/index.vue'),
 			meta: {
 				isShow: true,
 				title: '角色模块',
@@ -56,7 +56,7 @@ export default {
 		{
 			path: 'auth',
 			name: 'Auth',
-			component: () => import('@/views/auth/index.vue'),
+			component: () => import(/* webpackChunkName: "auth" */ '@/views/auth/index.vue'),
 			meta: {
 				isShow: true,
 				title: '权限模块',
@@ -67,7 +67,7 @@ export default {
 		{
 			path: 'user',
 			name: 'User',
-			component: () => import('@/views/user/index.vue'),
+			component: () => import(/* webpackChunkName: "user" */ '@/views/user/index.vue'),
 			meta: {
 				isShow: true,
 				title: '用户模块',
