@@ -1,66 +1,26 @@
 <template>
-	<el-container>
-		<el-header>
-			<Header></Header>
-		</el-header>
-		<el-container>
-			<el-aside width="200px">
-				<el-menu :default-active="activeMenu" :ellipsis="false" router>
-					<template v-for="item in menuList" :key="item.path">
-						<el-menu-item v-if="!item.children || !item.children.length" :index="item.path">
-							<span>{{ item.meta!.title }}</span>
-						</el-menu-item>
-						<el-sub-menu v-else :index="item.path">
-							<template #title>
-								<span>{{ item.meta?.title }}</span>
-							</template>
-							<el-menu-item v-for="subItem in item.children" :key="subItem.path" :index="subItem.path">
-								<span>{{ subItem.meta!.title }}</span>
-							</el-menu-item>
-						</el-sub-menu>
-					</template>
-				</el-menu>
-			</el-aside>
-			<el-main>
-				<el-breadcrumb :separator-icon="ArrowRight">
-					<el-breadcrumb-item v-for="item in settingStore.title" :key="item" :to="{ name: item }">
-						{{ item }}
-					</el-breadcrumb-item>
-				</el-breadcrumb>
-				<br />
-				<router-view></router-view>
-			</el-main>
-		</el-container>
-	</el-container>
+	<div class="wrap-container">
+		<router-view />
+		<van-tabbar v-model="active" route>
+			<van-tabbar-item replace to="/home" icon="home-o">首页</van-tabbar-item>
+			<van-tabbar-item replace to="/search" icon="search">搜索</van-tabbar-item>
+			<van-tabbar-item replace to="/setting" icon="setting-o">设置</van-tabbar-item>
+		</van-tabbar>
+	</div>
 </template>
+
 <script lang="ts" setup>
-import Header from './components/header.vue';
-import { ArrowRight } from '@element-plus/icons-vue';
-import { useSettingStore } from '@/store/setting';
-
-const router = useRouter();
-const route = useRoute();
-const settingStore = useSettingStore();
-console.log('settingStore', settingStore.title);
-
-console.log('router.getRoutes()', router.options.routes[0]);
-const menuList = router.options.routes[0].children?.filter((item) => {
-	return item.meta?.isShow;
-});
-console.log('menuList', menuList);
-const activeMenu = route.path;
+// import { useRouter, useRoute } from 'vue-router';
+// const router = useRouter();
+// const route = useRoute();
+const active = ref<string>('home');
 </script>
-<style lang="less" scoped>
-.el-header {
-	padding: 0;
-	margin-bottom: 5px;
-}
 
-.el-container {
-	height: 100vh;
-
-	.el-menu {
-		height: 100%;
-	}
+<style scoped lang="less">
+.wrap-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 </style>

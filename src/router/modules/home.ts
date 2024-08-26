@@ -1,79 +1,38 @@
-import type { RouteRecordRaw } from 'vue-router';
-
 export default {
 	path: '/',
-	name: 'Layout',
+	name: 'Home',
+	redirect: '/home',
 	component: () => import(/* webpackChunkName: "home" */ '@/layout/index.vue'),
 	meta: {
 		role: ['common', 'admin']
 	},
-	redirect: '/',
 	children: [
 		{
-			path: '/',
-			name: 'Main',
+			path: '/home',
+			name: 'HomePage',
+			component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue'),
 			meta: {
 				isShow: true,
-				title: '主要项目',
-				parent: 'Layout'
-			},
-			redirect: '/home',
-			children: [
-				{
-					path: 'home',
-					name: 'Home',
-					component: () => import('@/views/home/index.vue'),
-					meta: {
-						isShow: true,
-						title: '项目首页',
-						parent: 'Main'
-					}
-				},
-				{
-					path: 'about',
-					name: 'About',
-					component: () => import('@/views/about/index.vue'),
-					meta: {
-						isShow: true,
-						title: '关于我的',
-						parent: 'Main'
-					},
-					children: []
-				}
-			]
+				title: '首页'
+			}
 		},
 		{
-			path: 'role',
-			name: 'Role',
-			component: () => import(/* webpackChunkName: "role" */ '@/views/role/index.vue'),
+			path: '/search',
+			name: 'SearchPage',
+			component: () => import(/* webpackChunkName: "search" */ '@/views/search/index.vue'),
 			meta: {
-				isShow: true,
-				title: '角色模块',
-				parent: 'Layout'
-			},
-			children: []
+				title: '搜索模块',
+				isShow: true
+			}
 		},
 		{
-			path: 'auth',
-			name: 'Auth',
-			component: () => import(/* webpackChunkName: "auth" */ '@/views/auth/index.vue'),
+			path: '/setting',
+			name: 'SettingPage',
+			component: () => import(/* webpackChunkName: "setting" */ '@/views/setting/index.vue'),
 			meta: {
-				isShow: true,
-				title: '权限模块',
-				parent: 'Layout'
-			},
-			children: []
-		},
-		{
-			path: 'user',
-			name: 'User',
-			component: () => import(/* webpackChunkName: "user" */ '@/views/user/index.vue'),
-			meta: {
-				isShow: true,
-				title: '用户模块',
-				parent: 'Layout'
-			},
-			children: []
+				title: '设置模块',
+				isShow: true
+			}
 		}
 	]
-} as RouteRecordRaw;
+};

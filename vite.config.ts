@@ -8,22 +8,9 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Icons from 'unplugin-icons/vite';
 import Components from 'unplugin-vue-components/vite';
 import IconsResolver from 'unplugin-icons/resolver';
-import ElementPlus from 'unplugin-element-plus/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { VantResolver } from 'unplugin-vue-components/resolvers';
 import { visualizer } from 'rollup-plugin-visualizer';
-// import viteCompression from 'vite-plugin-compression';
-import externalGlobals from 'rollup-plugin-external-globals';
-import brotli from 'rollup-plugin-brotli';
-import { createHtmlPlugin } from 'vite-plugin-html';
 import { manualChunksPlugin } from 'vite-plugin-webpackchunkname';
-
-// 外链形式处理，不进行打包的库（使用的频率非常多的库）, 而是在html中使用cdn去引入
-const globals = externalGlobals({
-	moment: 'moment',
-	'video.js': 'videojs'
-	// jspdf: 'jspdf',
-	// xlsx: 'xlsx'
-});
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 	// 获取当前工作目录
@@ -49,20 +36,18 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 				mockPath: 'mock', // 数据模拟需要拦截的请求起始 URL
 				enable: true // 本地开发是否启用
 			}),
-			// 开启ElementPlus自动引入CSS
-			ElementPlus({}),
 			// 自动引入组件及ICON
 			AutoImport({
 				imports: ['vue', 'vue-router', 'pinia'],
 				eslintrc: {
 					enabled: true
 				},
-				resolvers: [IconsResolver(), ElementPlusResolver()],
+				resolvers: [IconsResolver(), VantResolver()],
 				dts: fileURLToPath(new URL('./types/auto-imports.d.ts', import.meta.url))
 			}),
 			// 自动注册组件
 			Components({
-				resolvers: [IconsResolver(), ElementPlusResolver()],
+				resolvers: [IconsResolver(), VantResolver()],
 				dts: fileURLToPath(new URL('./types/components.d.ts', import.meta.url)),
 				dirs: [fileURLToPath(new URL('./src/components.d.ts', import.meta.url))],
 				include: [/\.vue$/, /\.vue\?/]
@@ -70,24 +55,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			// 自动安装图标
 			Icons({
 				autoInstall: true
-			}),
-			// 开启gzip压缩
-			// viteCompression({
-			// 	threshold: 20 * 1024, // 超过20kb开启gzip压缩
-			// 	ext: '.gz',
-			// 	algorithm: 'gzip'
-			// })
-			// 开启br压缩
-			brotli({}),
-			// 在生成的html中配置外链链接
-			createHtmlPlugin({
-				inject: {
-					data: {
-						momentscript: '<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.js" />',
-						videoscript: '<script src="https://cdn.jsdelivr.net/npm/video.js@7.14.3/dist/video.min.js" />'
-						// echartscript: '<script src="https://cdn.jsdelivr.net/npm/echarts@5.2.1/echarts" />'
-					}
-				}
 			}),
 			// 类似于webpack的设置配置webpackchunkname，根据router中的注释，否则需要在manualChunks中单独配置独立的路径进行配置
 			manualChunksPlugin()
@@ -156,12 +123,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 						// return 'index';
 					}
 				},
-				external: ['moment', 'video.js', 'xlsx', 'echart'],
 				treeshake: {
 					preset: 'recommended'
 				},
 				experimentalLogSideEffects: true, // 用于有副作用的时候
-				plugins: [visualizer(), globals]
+				plugins: [visualizer()]
 			}
 		},
 		// 配置别名

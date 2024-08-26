@@ -4,11 +4,11 @@ import pinia from '@/store';
 // 第一个参数是你的应用中 Store 的唯一 ID。
 export const useSettingStoreHook = defineStore('SettingStore', {
 	state: () => ({
-		title: [] as string[]
+		count: 0
 	}),
 	actions: {
-		setTitle(title: string[]) {
-			this.title = title;
+		addCount() {
+			this.count++;
 		}
 	}
 });
