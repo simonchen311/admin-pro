@@ -83,8 +83,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			createHtmlPlugin({
 				inject: {
 					data: {
-						momentscript: '<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.js" />',
-						videoscript: '<script src="https://cdn.jsdelivr.net/npm/video.js@7.14.3/dist/video.min.js" />'
+						// momentscript: '<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.js" />',
+						// videoscript: '<script src="https://cdn.jsdelivr.net/npm/video.js@7.14.3/dist/video.min.js" />'
 						// echartscript: '<script src="https://cdn.jsdelivr.net/npm/echarts@5.2.1/echarts" />'
 					}
 				}
@@ -177,6 +177,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 					additionalData: `@import "@/styles/variable.less";`
 				}
 			}
+		},
+		test: {
+			deps: {
+				// vitetest报错解决
+				inline: ['element-plus']
+			},
+			environment: 'jsdom'
 		}
 	};
 });
