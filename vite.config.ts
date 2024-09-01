@@ -13,7 +13,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { visualizer } from 'rollup-plugin-visualizer';
 // import viteCompression from 'vite-plugin-compression';
 import externalGlobals from 'rollup-plugin-external-globals';
-import brotli from 'rollup-plugin-brotli';
+// import brotli from 'rollup-plugin-brotli';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { manualChunksPlugin } from 'vite-plugin-webpackchunkname';
 
@@ -78,7 +78,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			// 	algorithm: 'gzip'
 			// })
 			// 开启br压缩
-			brotli({}),
+			// brotli({}),
 			// 在生成的html中配置外链链接
 			createHtmlPlugin({
 				inject: {
