@@ -1,7 +1,7 @@
 <template>
 	<div class="login-box">
 		<div class="login-form">
-			<h1>21，管理企业中后台管理系统</h1>
+			<h1>2，管理企业中后台管理系统</h1>
 			<br />
 			<el-form show-message :model="userInfo" :rules="rules" center class="login-info">
 				<el-form-item prop="username">
