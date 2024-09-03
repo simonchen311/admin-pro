@@ -5,8 +5,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 // 拉取代码
-                // node -v
-                git -v
+                sh 'node -v'
+                sh 'git -v'
                 // git 'ssh://git@1.2.3.4:8822/react-wheel/react-coms.git'
             }
         }
