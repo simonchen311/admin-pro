@@ -11,7 +11,7 @@ pipeline {
                 sh """
                     . ~/.nvm/nvm.sh
                     nvm --version
-                    NVM_NODEJS_ORG_MIRROR=https://registry.npmmirror.com/node nvm install 16.14.2
+                    NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install 16.14.2
                     nvm use 16.14.2
                     node -v
                     npm config set registry https://registry.npmmirror.com/
