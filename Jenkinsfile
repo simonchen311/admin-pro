@@ -11,13 +11,13 @@ pipeline {
                 sh """
                     . ~/.nvm/nvm.sh
                     nvm --version
+                    nvm install 16.14.2
+                    nvm use 16.14.2
+                    node -v
+                    npm config set registry https://registry.npmmirror.com/
                 """
-                              //     ls
-                //     . nvm.sh
-                //     nvm install 16.14.2
-                //     nvm use 16.14.2
-                //     node -v
-                //     npm config set registry https://registry.npmmirror.com/
+
+
                 //     npm i -g pnpm@8.15.5
                 //     pnpm -v
 	            // sh ''
