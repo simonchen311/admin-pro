@@ -5,30 +5,31 @@ pipeline {
             steps {
                 // 拉取代码
 
-                echo '测试git版本'
+                echo '当前git版本'
                 sh 'git -v'
-                echo '开始安装nvm node 和 pnpm'
-                sh """
-                    . ~/.nvm/nvm.sh
-                    nvm --version
-                    NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install 16.14.2
-                    nvm use 16.14.2
-                    node -v
-                    npm config set registry https://registry.npmmirror.com/
-                    npm i -g pnpm@8.15.5
-                    pnpm -v
-                """
-
-
-                // git 'ssh://git@1.2.3.4:8822/react-wheel/react-coms.git'
+                sh 'git clone"git@github.com:simonchen311/admin-pro.git"'
+                sh 'node -v'
             }
         }
-
+        // stage('Configure Node') {
+        //     steps {
+        //         echo '开始安装nvm node 和 pnpm'
+        //         sh """
+        //             . ~/.nvm/nvm.sh
+        //             nvm --version
+        //             NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install 16.14.2
+        //             nvm use 16.14.2
+        //             node -v
+        //             npm config set registry https://registry.npmmirror.com/
+        //             npm i -g pnpm@8.15.5
+        //             pnpm -v
+        //         """
+        //     }
+        // }
         // stage('Build') {
         //     steps {
         //         // 安装依赖并构建项目
-        //         sh 'npm install'
-        //         sh 'npm run build'
+        //         sh 'pnpm install'
         //     }
         // }
     }
