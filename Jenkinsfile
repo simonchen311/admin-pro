@@ -8,9 +8,9 @@ pipeline {
                 echo '测试git版本'
                 sh 'git -v'
                 echo '开始安装nvm node 和 pnpm'
-                sh 'cd ~/.nvm'
-                sh 'ls'
-                sh 'git status'
+                cd ~/.nvm
+                ls
+                git status
 	            // sh 'nvm use 16.14.2'
 	            // sh 'nvm alias default 16.14.2'
 	            // sh 'npm config set registry https://registry.npmmirror.com/'
