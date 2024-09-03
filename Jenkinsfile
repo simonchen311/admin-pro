@@ -10,6 +10,7 @@ pipeline {
                 echo '开始安装nvm node 和 pnpm'
                 sh """
                     cd ~/.nvm
+                    ls
                     . nvm.sh
                     nvm install 16.14.2
                     nvm use 16.14.2
