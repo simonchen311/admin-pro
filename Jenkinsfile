@@ -9,7 +9,6 @@ pipeline {
                 sh 'git -v'
                 echo '开始安装nvm node 和 pnpm'
                 sh """
-                    cd ~/.nvm
                     . ~/.nvm/nvm.sh
                     nvm --version
                 """
