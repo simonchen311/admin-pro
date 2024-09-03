@@ -15,17 +15,11 @@ pipeline {
                     nvm use 16.14.2
                     node -v
                     npm config set registry https://registry.npmmirror.com/
+                    npm i -g pnpm@8.15.5
+                    pnpm -v
                 """
 
 
-                //     npm i -g pnpm@8.15.5
-                //     pnpm -v
-	            // sh ''
-	            // sh 'nvm alias default 16.14.2'
-	            // sh 'npm config set registry https://registry.npmmirror.com/'
-	            // sh 'npm i -g pnpm@8.15.5'
-                // echo '测试node版本'
-                // sh 'node -v'
                 // git 'ssh://git@1.2.3.4:8822/react-wheel/react-coms.git'
             }
         }
