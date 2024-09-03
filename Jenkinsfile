@@ -7,7 +7,7 @@ pipeline {
 
                 echo '当前git版本'
                 sh 'git -v'
-                sh 'git clone"git@github.com:simonchen311/admin-pro.git"'
+                // sh 'git clone"git@github.com:simonchen311/admin-pro.git"'
                 sh 'node -v'
             }
         }
