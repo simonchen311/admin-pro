@@ -11,6 +11,7 @@ pipeline {
                 sh """
                     cd ~/.nvm
                     git status
+                    . ~/.nvm/nvm.sh
                 """
                               //     ls
                 //     . nvm.sh
