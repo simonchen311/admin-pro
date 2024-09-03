@@ -10,11 +10,16 @@ pipeline {
                 echo '开始安装nvm node 和 pnpm'
                 sh """
                     cd ~/.nvm
-                    ls
-                    git status
+                    . nvm.sh
+                    nvm install 16.14.2
+                    nvm use 16.14.2
+                    node -v
+                    npm config set registry https://registry.npmmirror.com/
+                    npm i -g pnpm@8.15.5
+                    pnpm -v
                 """
 
-	            // sh 'nvm use 16.14.2'
+	            // sh ''
 	            // sh 'nvm alias default 16.14.2'
 	            // sh 'npm config set registry https://registry.npmmirror.com/'
 	            // sh 'npm i -g pnpm@8.15.5'
