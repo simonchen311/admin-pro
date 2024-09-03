@@ -11,7 +11,6 @@ pipeline {
                 sh """
                     . ~/.nvm/nvm.sh
                     nvm --version
-                    nvm install 16.14.2
                     nvm use 16.14.2
                     node -v
                     npm config set registry https://registry.npmmirror.com/
