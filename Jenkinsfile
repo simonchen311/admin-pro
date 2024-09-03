@@ -9,10 +9,7 @@ pipeline {
                 sh 'git -v'
                 // sh 'git clone"git@github.com:simonchen311/admin-pro.git"'
                 sh 'node -v'
-                sh """
-                    cd /opt/java
-                    ls
-                """
+                sh "java --version"
             }
         }
         // stage('Configure Node') {
