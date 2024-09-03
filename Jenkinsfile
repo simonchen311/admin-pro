@@ -1,14 +1,15 @@
 pipeline {
     agent any
-
+    tools {nodejs "node16"}
     stages {
         stage('Checkout') {
             steps {
                 // 拉取代码
-                // echo '测试node版本'
-                // sh 'node -v'
+
                 echo '测试git版本'
                 sh 'git -v'
+                echo '测试node版本'
+                sh 'node -v'
                 // git 'ssh://git@1.2.3.4:8822/react-wheel/react-coms.git'
             }
         }
