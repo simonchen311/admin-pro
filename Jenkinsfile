@@ -11,7 +11,7 @@ pipeline {
                 sh """
                     cd ~/.nvm
                     ls
-                    . /nvm.sh
+                    . nvm.sh
                     nvm install 16.14.2
                     nvm use 16.14.2
                     node -v
