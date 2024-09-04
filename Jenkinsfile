@@ -3,7 +3,12 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                emailext()
+                emailext(
+                    body: '${DEFAULT_CONTENT}',
+                    subject: '${DEFAULT_SUBJECT}',
+                    to: '${DEFAULT_RECIPIENTS}',
+                    from: '${env.DEFAULT_FROM_EMAIL}'
+                )
                 // // 拉取代码
                 // echo '当前git版本'
                 // sh 'git -v'
