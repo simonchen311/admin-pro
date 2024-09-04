@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo "开始构建"
+                echo "开始构建和压缩"
                 sh """
                     cd admin-pro
                     pnpm build
@@ -38,16 +38,30 @@ pipeline {
                 """
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         script {
-        //             // 在远程服务器上执行命令
-        //             sh 'ssh user@server "ls -l"'
-        //             // 传输文件到远程服务器
-        //             sshPut remote: 'user@server', from: 'local/file.txt', into: '.'
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                echo '部署中...'
+                script {
+                    // 声明服务器信息
+                    def remote = [:]
+                    remote.name = 'web-server'
+                    remote.allowAnyHosts = true
+                    remote.host = '120.27.263.15'
+                    remote.port = 22
+                    remote.user = 'root'
+
+                    // 把「CODING 凭据管理」中的「凭据 ID」填入 credentialsId，而 id_rsa 无需修改
+                    withCredentials([sshUserPrivateKey(credentialsId: "403522f0-9da6-4b9e-b867-667908167694", keyFileVariable: 'id_rsa')]) {
+                        remote.identityFile = id_rsa
+
+                        // SSH 上传文件到远端服务器
+                        sshPut remote: remote, from: './admin-pro/archive.tar.gz', into: '/usr/projects/'
+                        // sshCommand remote: remote, command: "sh /opt/test.sh"
+                    }
+                }
+                echo '部署完成'
+            }
+        }
     }
 
     // post {
