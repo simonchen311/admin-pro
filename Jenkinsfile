@@ -34,7 +34,7 @@ pipeline {
                 sh """
                     cd admin-pro
                     pnpm build
-                sh """
+                """
             }
         }
     }
