@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Install') {
             steps {
-                echo '开始安装nvm node 和 pnpm'
+                echo '开始安装依赖'
                 sh """
                     cd admin-pro
                     node -v
@@ -28,12 +28,12 @@ pipeline {
                 """
             }
         }
-        // stage('Build') {
-        //     steps {
-        //         // 安装依赖并构建项目
-        //         sh 'pnpm install'
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                sh "开始构建"
+                sh 'pnpm build'
+            }
+        }
     }
 
     // post {
