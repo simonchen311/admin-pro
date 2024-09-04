@@ -30,8 +30,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "开始构建"
-                sh 'pnpm build'
+                sh 'pwd'
+                // sh "开始构建"
+                // sh 'pnpm build'
             }
         }
     }
