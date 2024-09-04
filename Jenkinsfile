@@ -60,6 +60,11 @@ pipeline {
                     }
                 }
                 echo '部署完成'
+                emailext(
+                    subject: $DEFAULT_SUBJECT,
+                    recipientProviders: $DEFAULT_RECIPIENTS,
+                    body: $DEFAULT_CONTENT
+                )
             }
         }
     }
