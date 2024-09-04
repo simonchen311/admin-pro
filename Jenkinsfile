@@ -46,7 +46,7 @@ pipeline {
                     def remote = [:]
                     remote.name = 'web-server'
                     remote.allowAnyHosts = true
-                    remote.host = '120.27.263.15'
+                    remote.host = '120.27.236.15'
                     remote.port = 22
                     remote.user = 'root'
 
