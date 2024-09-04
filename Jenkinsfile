@@ -5,6 +5,7 @@ pipeline {
             steps {
                 // 拉取代码
                 echo '当前git版本'
+                echo '${env.DEFAULT_FROM_EMAIL}'
                 // sh 'git -v'
                 // echo '清空本地目录'
                 // sh "rm -rf *"
