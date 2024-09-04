@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "开始构建"
+                echo "开始构建"
                 sh """
                     cd admin-pro
                     pwd
