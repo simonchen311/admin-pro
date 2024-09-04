@@ -34,7 +34,7 @@ pipeline {
                 sh """
                     cd admin-pro
                     pnpm build
-                    tar -czvf archive.tar.gz ./dist/
+                    // tar -czvf archive.tar.gz ./dist/
                 """
             }
         }
@@ -56,7 +56,7 @@ pipeline {
 
                         // SSH 上传文件到远端服务器
                         sshPut remote: remote, from: './admin-pro/archive.tar.gz', into: '/usr/projects/admin-webhook/'
-                        sshCommand remote: remote, command: "sh /usr/projects/admin-webhook/ssh-admin-pro.sh"
+                        // sshCommand remote: remote, command: "sh /usr/projects/admin-webhook/ssh-admin-pro.sh"
                     }
                 }
                 echo '部署完成'
