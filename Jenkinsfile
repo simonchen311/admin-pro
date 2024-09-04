@@ -33,9 +33,7 @@ pipeline {
                 echo "开始构建"
                 sh """
                     cd admin-pro
-                    pwd
-                    ls
-                    pnpm -v
+                    pnpm build
                 """
             }
         }
