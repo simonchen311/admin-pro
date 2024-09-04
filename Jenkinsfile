@@ -8,7 +8,7 @@ pipeline {
                 echo '当前git版本'
                 sh 'git -v'
                 echo '清空本地目录'
-                // sh "rm -rf admin-pro/*"
+                sh "rm -rf *"
                 // echo '开始拉取git代码'
                 // sshagent(credentials: ['3828ea59-c322-4700-8626-7cb0e9298f64']) {
                 //     sh 'git clone git@github.com:simonchen311/admin-pro.git'
