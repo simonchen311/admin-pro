@@ -24,6 +24,7 @@ pipeline {
                     npm config set registry https://registry.npmmirror.com/
                     npm i -g pnpm@8.15.5
                     pnpm -v
+                    pnpm install
                 """
             }
         }
