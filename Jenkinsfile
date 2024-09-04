@@ -34,9 +34,20 @@ pipeline {
                 sh """
                     cd admin-pro
                     pnpm build
+                    tar -czvf archive.tar.gz ./dist/
                 """
             }
         }
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             // 在远程服务器上执行命令
+        //             sh 'ssh user@server "ls -l"'
+        //             // 传输文件到远程服务器
+        //             sshPut remote: 'user@server', from: 'local/file.txt', into: '.'
+        //         }
+        //     }
+        // }
     }
 
     // post {
