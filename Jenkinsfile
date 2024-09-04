@@ -3,12 +3,6 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                emailext(
-                    body: '${DEFAULT_CONTENT}',
-                    subject: '${DEFAULT_SUBJECT}',
-                    to: '${DEFAULT_RECIPIENTS}',
-                    from: '${env.DEFAULT_FROM_EMAIL}'
-                )
                 // // 拉取代码
                 // echo '当前git版本'
                 // sh 'git -v'
@@ -70,11 +64,16 @@ pipeline {
         // }
     }
 
-    // post {
-    //     always {
-    //         // 这里可以添加构建后的操作，比如清理、发送通知等
-    //         echo '项目已经构建完成.'
-    //     }
-    // }
+    post {
+        always {
+            // 这里可以添加构建后的操作，比如清理、发送通知等
+            emailext(
+                body: '${DEFAULT_CONTENT}',
+                subject: '${DEFAULT_SUBJECT}',
+                to: '${DEFAULT_RECIPIENTS}',
+                from: '${env.DEFAULT_FROM_EMAIL}'
+            )
+        }
+    }
         //
 }
