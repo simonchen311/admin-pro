@@ -34,7 +34,7 @@ pipeline {
                 sh """
                     cd admin-pro
                     pnpm build
-                    // tar -czvf archive.tar.gz ./dist/
+                    tar -czvf archive.tar.gz ./dist/
                 """
             }
         }
@@ -54,7 +54,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: "403522f0-9da6-4b9e-b867-667908167694", keyFileVariable: 'id_rsa')]) {
                         remote.identityFile = id_rsa
 
-                        // SSH 上传文件到远端服务器
+                        // SSH 上传文件到远端服务器git
                         sshPut remote: remote, from: './admin-pro/archive.tar.gz', into: '/usr/projects/admin-webhook/'
                         // sshCommand remote: remote, command: "sh /usr/projects/admin-webhook/ssh-admin-pro.sh"
                     }
