@@ -30,9 +30,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'pwd'
-                // sh "开始构建"
-                // sh 'pnpm build'
+                sh "开始构建"
+                sh """
+                    cd admin-pro
+                    pnpm build
+                sh """
             }
         }
     }
