@@ -8,10 +8,12 @@ pipeline {
                 echo '当前git版本'
                 sh 'git -v'
                 echo '开始拉取git代码'
-                git  credentialsId: '3828ea59-c322-4700-8626-7cb0e9298f64', url: 'git@github.com:simonchen311/admin-pro.git'
+                sshagent(['3828ea59-c322-4700-8626-7cb0e9298f64']) {
+                    git 'git@github.com:simonchen311/admin-pro.git'
+                }
+                // git  credentialsId: '3828ea59-c322-4700-8626-7cb0e9298f64', url: 'git@github.com:simonchen311/admin-pro.git'
 
-                // sh 'git clone"git@github.com:simonchen311/admin-pro.git"'
-
+                // https://github.com/simonchen311/admin-pro.git
             }
         }
         // stage('Install') {
