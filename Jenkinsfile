@@ -35,6 +35,7 @@ pipeline {
                     cd admin-pro
                     pwd
                     ls
+                    pnpm -v
                 """
             }
         }
