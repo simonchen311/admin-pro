@@ -71,7 +71,7 @@ pipeline {
                 body: '${DEFAULT_CONTENT}',
                 subject: '${DEFAULT_SUBJECT}',
                 to: '${DEFAULT_RECIPIENTS}',
-                from: '${env.DEFAULT_FROM_EMAIL}'
+                from: "${env.DEFAULT_FROM_EMAIL}"
             )
         }
     }
