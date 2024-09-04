@@ -1,18 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        stage('Clone') {
             steps {
                 // 拉取代码
 
                 echo '当前git版本'
                 sh 'git -v'
+                echo '开始拉取git代码'
+                git  credentialsId: '3828ea59-c322-4700-8626-7cb0e9298f64', url: 'git@github.com:simonchen311/admin-pro.git'
+
                 // sh 'git clone"git@github.com:simonchen311/admin-pro.git"'
-                sh 'node -v'
-                sh "java --version"
+
             }
         }
-        // stage('Configure Node') {
+        // stage('Install') {
         //     steps {
         //         echo '开始安装nvm node 和 pnpm'
         //         sh """
