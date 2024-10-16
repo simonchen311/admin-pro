@@ -23,4 +23,5 @@ Sentry.init({
 	replaysOnErrorSampleRate: 1.0 // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 });
 
+app.config.globalProperties.$hello = '你好';
 app.mount('#app');
